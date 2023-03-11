@@ -1,5 +1,6 @@
 package com.scheronlini.apiRestfulmongodb.domain;
 
+import com.scheronlini.apiRestfulmongodb.dto.UserDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
