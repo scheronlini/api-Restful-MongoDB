@@ -45,6 +45,7 @@ public class StandardError {
     public void setError(String error) {
         this.error = error;
     }
+
     public String getMessage() {
         return message;
     }

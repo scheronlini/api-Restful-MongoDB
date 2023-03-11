@@ -10,6 +10,7 @@ public class UserDTO {
 
     public UserDTO() {
     }
+
     public UserDTO(User user) {
         id = user.getId();
         name = user.getName();

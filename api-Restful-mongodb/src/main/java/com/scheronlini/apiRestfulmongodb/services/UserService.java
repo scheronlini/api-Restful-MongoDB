@@ -4,7 +4,6 @@ import com.scheronlini.apiRestfulmongodb.domain.User;
 import com.scheronlini.apiRestfulmongodb.dto.UserDTO;
 import com.scheronlini.apiRestfulmongodb.repository.UserRepository;
 import com.scheronlini.apiRestfulmongodb.services.exceptions.ObjectNotFoundException;
-import org.apache.catalina.UserDatabase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,21 +16,36 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<User> findAll(){
-       return userRepository.findAll();
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 
-    public User findById(String id){
+    public User findById(String id) {
         Optional<User> user = userRepository.findById(id);
         return user.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
     }
 
-    public User insert(User user){
-       return userRepository.insert(user);
+    public User insert(User user) {
+        return userRepository.insert(user);
     }
 
-    public User fromDTO(UserDTO userDTO){
+    public void deleteById(String id) {
+        userRepository.deleteById(id);
+    }
+
+    public User update(User newUser) {
+        User userData = findById(newUser.getId());
+        updateData(newUser, userData);
+        return userRepository.save(newUser);
+    }
+
+    public User fromDTO(UserDTO userDTO) {
         User user = new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
         return user;
+    }
+
+    public void updateData(User newUser, User userData) {
+        userData.setEmail(newUser.getEmail());
+        userData.setName(newUser.getName());
     }
 }
